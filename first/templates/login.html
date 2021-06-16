@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +8,9 @@
 <body>
     <form action="" method="post">
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form.as_p }}
+        <a href="/social-auth/login/vk-oauth2"><img src="/static/vk.png" class="avatar-3" data-toggle="tooltip"></a>
+        <a href="/social-auth/login/google-oauth2"><img src="/static/google.png" class="avatar-3" data-toggle="tooltip""></a>
         <button type="submit">войти</button>
     </form>
 </body>

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qkijwh2a8$-iok&#g0j5_4a7^$ejv+rf8%mh!kynyt_r6e)you'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,14 +91,22 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
-    'social_core.backends.vk.VKOAuth2',  # бекенд авторизации через ВКонтакте
+    'social_core.backends.vk.VKOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = '7880665'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'XZX8lfomUgWtv2PwATW0'
+SOCIAL_AUTH_VK_OAUTH2_KEY = config('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = config('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['EMAIL']
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+# SOCIAL_AUTH_PIPELINE = (
+#     'social_core.pipeline.social_auth.associate_by_email',
+# )
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -140,7 +149,7 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+LOGIN_REDIRECT_URL = '/registration/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1

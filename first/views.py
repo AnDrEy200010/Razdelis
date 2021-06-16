@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from .forms import UserCreateForm
+import requests
 
 
 class MainView(TemplateView):
@@ -39,6 +40,7 @@ class LoginFormView(FormView):
         self.user = form.get_user()
         login(self.request, self.user)
         return super(LoginFormView, self).form_valid(form)
+
 
 class LogoutView(View):
     def get(self, request):

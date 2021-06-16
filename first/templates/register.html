@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Регистрация</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <label for="">{{field.label}}</label>
+        <div>{{field}}</div>
+        {% if field.errors %}
+        <p>{{field.errors}}</p>
+        {% endif %}
+        {% endfor %}
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</body>
+</html>
